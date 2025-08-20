@@ -1,0 +1,59 @@
+name: build-tauri
+
+on:
+  push:
+    tags:
+      - "v*"              # builds when you push a tag like v0.1.4
+  workflow_dispatch:       # allows manual run from the Actions tab
+
+permissions:
+  contents: write          # required to create GitHub Releases for tag builds
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]   # build DMG on macOS, MSI on Windows
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      # (optional) cache to speed up installs
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            **/node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install frontend deps
+        run: npm ci
+
+      - name: Build web assets
+        run: npm run build
+
+      # This builds the native installers.
+      # For tag builds, it also creates a GitHub Release and attaches the files.
+      # For manual runs, the installers appear as workflow Artifacts.
+      - name: Tauri build
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }}                          # e.g. v0.1.4
+          releaseName: "HHI Registration ${{ github.ref_name }}"
+          releaseDraft: false
+          prerelease: false
