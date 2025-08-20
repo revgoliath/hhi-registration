@@ -1,0 +1,21 @@
+{
+  "package": { "productName": "HHI Registration", "version": "0.1.3" },
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devPath": "http://localhost:5173",
+    "distDir": "../dist"
+  },
+  "tauri": {
+    "bundle": {
+      "active": true,
+      "identifier": "org.hhi.registration",
+      "targets": ["dmg", "app"],
+      "icon": ["icons/icon.icns"]
+    },
+    "security": { "csp": null },
+    "windows": [
+      { "title": "HHI Registration", "width": 1200, "height": 800, "resizable": true }
+    ]
+  }
+}

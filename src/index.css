@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer components {
+  .form-field {
+    @apply mb-4 lg:mb-6;
+  }
+  
+  .btn-primary {
+    @apply bg-blue-600 text-white px-3 lg:px-4 py-2 lg:py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm lg:text-base;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-200 text-gray-800 px-3 lg:px-4 py-2 lg:py-3 rounded-lg hover:bg-gray-300 transition-colors font-medium text-sm lg:text-base;
+  }
+  
+  .card {
+    @apply bg-white rounded-lg lg:rounded-xl shadow-sm border border-gray-200 p-4 lg:p-6;
+  }
+  
+  .gradient-header {
+    @apply bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-xl lg:rounded-2xl shadow-lg p-6 lg:p-8;
+  }
+  
+  .stat-card {
+    @apply bg-white rounded-lg lg:rounded-xl shadow-sm border-l-4 p-4 lg:p-6 hover:shadow-md transition-shadow;
+  }
+  
+  .mobile-menu-item {
+    @apply block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 flex items-center space-x-3;
+  }
+  
+  .desktop-nav-item {
+    @apply px-2 xl:px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center space-x-1 xl:space-x-2;
+  }
+  
+  .form-input {
+    @apply w-full px-3 sm:px-4 py-2 lg:py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors text-gray-900 bg-white text-sm lg:text-base;
+  }
+  
+  .section-header {
+    @apply text-base sm:text-lg lg:text-xl font-bold text-gray-900 mb-4 sm:mb-6 flex items-center space-x-2;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Ensure proper rendering */
+#root {
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
+
+/* Loading state */
+.loading {
+  @apply animate-pulse;
+}
+
+/* Focus styles */
+.focus-visible {
+  @apply outline-none ring-2 ring-blue-500 ring-offset-2;
+}
+
+/* Responsive utilities */
+@media (max-width: 640px) {
+  .mobile-hidden {
+    display: none;
+  }
+  
+  .mobile-full-width {
+    width: 100% !important;
+  }
+  
+  .mobile-text-sm {
+    font-size: 0.875rem !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .lg-hidden {
+    display: none;
+  }
+  
+  .lg-full-width {
+    width: 100% !important;
+  }
+}
+
+/* Improved touch targets for mobile */
+@media (max-width: 768px) {
+  button, a, input, select, textarea {
+    min-height: 44px;
+  }
+  
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Better spacing on mobile */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .mobile-spacing {
+    margin-bottom: 1rem;
+  }
+  
+  .mobile-padding {
+    padding: 1rem;
+  }
+}
